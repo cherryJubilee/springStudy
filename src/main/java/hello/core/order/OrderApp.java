@@ -1,5 +1,6 @@
 package hello.core.order;
 
+import hello.core.AppConfig;
 import hello.core.member.Grade;
 import hello.core.member.Member;
 import hello.core.member.MemberService;
@@ -9,14 +10,18 @@ public class OrderApp {
 
     public static void main(String[] args) {
 
-        MemberService memberService = new MemberServiceImpl();
-        OrderService orderService = new OrderServiceImpl();
+        AppConfig appConfig = new AppConfig();
+        MemberService memberService = appConfig.memberService();
+        OrderService orderService = appConfig.orderService();
+
+//        MemberService memberService = new MemberServiceImpl(null);
+//        OrderService orderService = new OrderServiceImpl(null);
 
         Long memberId = 1L;
         Member member = new Member(memberId, "memberA", Grade.VIP);
         memberService.join(member);
 
-        Order order = orderService.createorder(memberId, "itemA", 10000);
+        Order order = orderService.createorder(memberId, "itemA", 20000);
 
         System.out.println("order= " + order);
     }
